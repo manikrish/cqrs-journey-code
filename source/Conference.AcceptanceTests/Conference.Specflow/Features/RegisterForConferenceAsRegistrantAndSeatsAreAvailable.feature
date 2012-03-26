@@ -1,7 +1,7 @@
-﻿Feature: End-to-End process of self-registering for a conference by a registrant
+﻿Feature: End-to-End process of group registering for a conference by a registrant who is not attending the conference
 	In order to attend conference
-	As an attendee
-	I want to be able to register for the Conference, pay for the registration order and associate myself with the paid order automatically
+	As a registrant
+	I want to be able to register for the Conference for group of attendees, pay for the registration order and associate attendees with the paid order automatically
 
 #	1. identify the conference
 #	2. select seat types to register for
@@ -12,6 +12,7 @@
 #	7. receive a confirmation message on via email (could be delayed)
 
 #note make sure to include the confirmation step as the registrant is also an attendee
+# Question - as this feature is says self-registering then why should there be a mention about registrant also an attendee
 
 
 Scenario: View seat types for a given conference
@@ -25,12 +26,17 @@ Scenario: View seat types for a given conference
 
 
 #Note: seat types that are sold out should be clearly marked so! (either not shown, or grayed out or with tag "Sold Out!'
+#Note -  Question when a seat type is sole out-  means there is no seats in the seat type, but still the user can request for one and he can be offered waitlisted , right?
 
+#Note i am registering for someone else and i am not attending the conference
 Scenario: Make a registration order selection
 	Given the list of 3 seat types for the CQRS summit 2012 conference
-	When I select 1 General admission seat
-	And I select 1 Additional cocktail party seat
-	Then I should see the total of $249
+	When I give the below details
+	| seat type                        | number of seats |
+	| General admission                | 2				 |
+	| Additional cocktail party		   | 2				 |
+	
+	Then I should see the total of $498
 	And I should be able to proceed to Checkout
 
 
